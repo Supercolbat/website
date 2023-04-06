@@ -1,0 +1,71 @@
+@import 'base/core';
+
+// Components
+@import 'components/card.scss';
+
+@keyframes fade-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1.0); }
+}
+
+header {
+  @include center;
+  flex-direction: column;
+
+  height: 100vh;
+
+  h1 {
+    margin: 16px;
+
+    font-size: $name;
+
+    // Fade in animation
+    // @keyframes duration | easing-function | name
+    animation: 2s ease fade-in;
+  }
+
+  span {
+    font-size: $h3;
+
+    // Fade in animation
+    // @keyframes duration | easing-function | delay | name | fill-mode
+    opacity: 0;
+    animation: 3s ease 0.5s fade-in forwards;
+  }
+}
+
+main {
+  display: flex;
+  justify-content: center;
+
+  padding: 2em;
+
+  // Restrict the width of children
+  & > * { max-width: 1000px; }
+}
+
+section {
+  margin-top: 3em;
+}
+
+/* Skills */
+.skills > h2 {
+  text-align: center;
+  font-size: $title;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2em;
+
+  @media (width <= 800px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (width <= 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+

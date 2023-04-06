@@ -1,0 +1,21 @@
+[package]
+name = "website"
+version = "0.1.0"
+authors = [ "Joey Lent <supercolbat@protonmail.com>" ]
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-files = "0.6.2"
+actix-web = "4.3.1"
+env_logger = "0.10.0"
+grass = "0.12.3"
+markdown = "1.0.0-alpha.7"
+maud = { version = "0.24.0", features = ["actix-web"] }
+tokio = { version = "1.27.0", features = ["full"] }
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1

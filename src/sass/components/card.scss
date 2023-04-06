@@ -1,0 +1,39 @@
+// Variables
+@import '../base/colors';
+@import '../base/fonts';
+@import '../base/typography';
+
+// Style
+.card {
+  // Icon and title
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+
+  // Icon
+  svg {
+    width: 2em;
+    height: fit-content;
+    fill: $foreground;
+  }
+
+  // Title
+  span {
+    font-size: $h3;
+    font-weight: bold;
+  }
+
+  padding: 1em;
+
+  border: 1px solid $foreground;
+  border-radius: 16px;
+
+  // Animation
+  transition: transform ease 0.3s, background-color ease 0.3s;
+  &:hover {
+    transform: scale(1.1);
+    background-color: transparentize($secondary, 0.75);
+  }
+}

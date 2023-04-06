@@ -1,0 +1,18 @@
+// Variables
+@import '../base/colors';
+@import '../base/fonts';
+@import '../base/typography';
+
+// Style
+footer {
+  border-top: 1px solid $foreground;
+
+  // Center content
+  p {
+    display: flex;
+    justify-content: center;
+    gap: 1ch;
+
+    text-align: center;
+  }
+}

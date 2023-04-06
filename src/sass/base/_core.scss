@@ -1,0 +1,33 @@
+// Variables
+@import 'colors';
+@import 'fonts';
+@import 'typography';
+
+// Mixins
+@import 'mixins';
+
+// Global components
+@import '../components/footer';
+
+// Other styles
+body {
+  margin: 0;
+
+  background-color: $background;
+  color: $foreground;
+
+  font-family: $font-body;
+  font-size: $body;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-header;
+}
+
+h3 {
+  line-height: 120%;
+}
+
+p, span {
+  line-height: 140%;
+}
