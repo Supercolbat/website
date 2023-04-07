@@ -13,7 +13,7 @@ pub fn compile_scss(path: &str) -> String {
 
             // Debug build
             if cfg!(debug_assertions) {
-                let error = format!("{:?}", kind).replace("'", "\\'");
+                let error = format!("{:?}", kind).replace('\'', "\\'");
                 // CSS magic to display hide page content and display the error message
                 // ```css
                 // body { display: none; }
@@ -24,7 +24,7 @@ pub fn compile_scss(path: &str) -> String {
 
             // Release build
             else {
-                String::new()
+                String::default()
             }
         }
     }
