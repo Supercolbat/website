@@ -31,3 +31,15 @@ h3 {
 p, span {
   line-height: 140%;
 }
+
+a {
+  // color: #CE4760;
+  text-decoration: none;
+ 
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+

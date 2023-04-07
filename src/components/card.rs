@@ -1,5 +1,5 @@
 use maud::{html, Markup, PreEscaped};
-use crate::icons::Icon;
+use crate::components::Icon;
 
 pub fn card(icon: Icon, title: &str, description: &str) -> Markup {
     let svg = icon.as_svg();

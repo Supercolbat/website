@@ -1,7 +1,6 @@
 mod server;
 mod routes;
 mod components;
-mod icons;
 
 use env_logger::Env;
 

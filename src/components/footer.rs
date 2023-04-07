@@ -15,7 +15,10 @@ pub fn footer() -> Markup {
             }
 
             // Copyright :)
-            p { "Joey Lent | v0.1.0" }
+            p {
+                "© 2023 Joey Lent. MIT License. | "
+                a href="https://github.com/Supercolbat/website" { "v" (env!("CARGO_PKG_VERSION")) }
+            }
         }
     }
 }

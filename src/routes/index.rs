@@ -1,6 +1,6 @@
 use maud::{DOCTYPE, html, Markup, PreEscaped};
 use grass::OutputStyle;
-use crate::{components, icons::Icon};
+use crate::components::{self, Icon};
 
 #[actix_web::get("/")]
 async fn index() -> actix_web::Result<Markup> {
@@ -37,7 +37,7 @@ async fn index() -> actix_web::Result<Markup> {
         }
         header {
             h1 { "Joey Lent" }
-            span { "Sorry, I really like minimalism" }
+            span { "Another self-proclaimed developer" }
         }
         main {
             section.skills {
@@ -45,8 +45,8 @@ async fn index() -> actix_web::Result<Markup> {
                 // Wrapper for the cards
                 div.cards {
                     (components::card(Icon::Rust,   "Rust",   "Absolutely absorbed in this language. Even this website is made with Rust."))
-                    (components::card(Icon::Nim,    "Nim",    ""))
-                    (components::card(Icon::Python, "Python", ""))
+                    (components::card(Icon::Nim,    "Nim",    "A very expressive language that shines in certain scenarios."))
+                    (components::card(Icon::Python, "Python", "A very fitting language for scripting."))
                     (components::card(Icon::Dart,   "Dart",   "Dart and Flutter are my go-to tools for hackathons."))
                     (components::card(Icon::Figma,  "Figma",  "I use Figma regularly to design a variety of applications."))
                     (components::card(Icon::Vim,    "Vim",    "90% of my workflow exists within a Neovim environment."))
