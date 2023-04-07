@@ -8,7 +8,8 @@ async fn blog() -> actix_web::Result<Markup> {
     Ok(html! {
         (DOCTYPE)
         head {
-            title { "me blog" }
+            title { "Joey Lent :: Blog" }
+            (components::meta_tags("Another self-proclaimed developer"))
             style { (PreEscaped(css)) }
         }
         header {

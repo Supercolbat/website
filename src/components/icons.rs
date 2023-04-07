@@ -22,3 +22,18 @@ impl Icon {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn as_svg() {
+        assert_eq!(Icon::Dart.as_svg(), DART);
+        assert_eq!(Icon::Figma.as_svg(), FIGMA);
+        assert_eq!(Icon::Nim.as_svg(), NIM);
+        assert_eq!(Icon::Python.as_svg(), PYTHON);
+        assert_eq!(Icon::Rust.as_svg(), RUST);
+        assert_eq!(Icon::Vim.as_svg(), VIM);
+    }
+}

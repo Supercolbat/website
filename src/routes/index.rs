@@ -8,8 +8,8 @@ async fn index() -> actix_web::Result<Markup> {
     Ok(html! {
         (DOCTYPE)
         head {
-            title { "me websit" }
-            meta name="viewport" content="width=device-width,initial-scale=1.0" {}
+            title { "Joey Lent" }
+            (components::meta_tags("Another self-proclaimed developer"))
             style { (PreEscaped(css)) }
         }
         header {
