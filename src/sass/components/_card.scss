@@ -3,8 +3,16 @@
 @import '../base/fonts';
 @import '../base/typography';
 
+@keyframes shift {
+  from {background-position: 0px 0px}
+  to {background-position: 600px 240px}
+}
+
 // Style
 .card {
+  background-attachment: fixed;
+  animation: 30s linear shift infinite;
+
   // Icon and title
   & > div {
     display: flex;
@@ -34,6 +42,7 @@
   transition: transform ease 0.3s, background-color ease 0.3s;
   &:hover {
     transform: scale(1.1);
+    background-image: url("/graph.svg");
     background-color: transparentize($secondary, 0.75);
   }
 }

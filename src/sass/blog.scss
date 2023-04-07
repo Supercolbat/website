@@ -1,14 +1,5 @@
-// Variables
-@import 'base/colors';
-@import 'base/fonts';
-@import 'base/typography';
-
-// Mixins
-@import 'base/mixins';
-
 // Global styles
 @import 'base/core';
 
 // Page styles
-@import 'pages/blog/page';
 @import 'pages/blog/markdown';

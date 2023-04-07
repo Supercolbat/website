@@ -16,7 +16,7 @@ pub fn footer() -> Markup {
 
             // Copyright :)
             p {
-                "© 2023 Joey Lent. MIT License. | "
+                "© 2023 Joey Lent. MIT License | "
                 a href="https://github.com/Supercolbat/website" { "v" (env!("CARGO_PKG_VERSION")) }
             }
         }

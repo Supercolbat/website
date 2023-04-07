@@ -1,10 +1,12 @@
 mod server;
 mod routes;
 mod components;
+mod utils;
 
 use env_logger::Env;
 
-const ADDR: &str = "127.0.0.1";
+// const ADDR: &str = "127.0.0.1";
+const ADDR: &str = "0.0.0.0";
 const PORT: u16 = 8080;
 
 #[tokio::main]

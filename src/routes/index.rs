@@ -1,38 +1,15 @@
 use maud::{DOCTYPE, html, Markup, PreEscaped};
-use grass::OutputStyle;
 use crate::components::{self, Icon};
+use crate::utils;
 
 #[actix_web::get("/")]
 async fn index() -> actix_web::Result<Markup> {
-    let css = match grass::from_path("src/sass/index.scss", &grass::Options::default().style(OutputStyle::Compressed)) {
-        Ok(css) => css,
-        Err(err) => {
-            // Report error in console and optionally return a debug stylesheet with the error
-            let kind = err.kind();
-            eprintln!("{:?}", kind);
-
-            // Debug build
-            if cfg!(debug_assertions) {
-                let error = format!("{:?}", kind).replace("'", "\\'");
-                // CSS magic to display hide page content and display the error message
-                // ```css
-                // body { display: none; }
-                // html::before { content: 'error message here...' }
-                // ```
-                String::from(format!("body{{display:none}}html::before{{content:'{}'}}", error))
-            }
-
-            // Release build
-            else {
-                String::new()
-            }
-        }
-    };
-
+    let css = utils::compile_scss("src/sass/index.scss");
     Ok(html! {
         (DOCTYPE)
         head {
             title { "me websit" }
+            meta name="viewport" content="width=device-width,initial-scale=1.0" {}
             style { (PreEscaped(css)) }
         }
         header {
