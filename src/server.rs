@@ -1,27 +1,44 @@
-use actix_web::{App, HttpServer, middleware::{Logger, Compress}};
+use actix_web::{
+    App,
+    HttpServer,
+    middleware::{Logger, Compress, NormalizePath, TrailingSlash},
+    web, dev::Server
+};
 use actix_files as fs;
 
-use crate::routes;
+use std::net::SocketAddrV4;
+use std::sync::{Arc, Mutex};
 
-/// Starts the web server
-/// ```rust
-/// println!('hi');
-/// ```
-pub async fn start_server(addr: &str, port: u16) -> std::io::Result<()> {
-    HttpServer::new(|| {
+use crate::{routes, blog::Blog, state::AppState};
+
+/// Creates a web server object that can be started later
+pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>) -> Server {
+    HttpServer::new(move || {
+        let blog = blog.clone();
         App::new()
+            // App state
+            .app_data(web::Data::new(AppState { blog }))
+
             // Middleware
             .wrap(Logger::default())
             .wrap(Compress::default())
+            .wrap(NormalizePath::new(TrailingSlash::Trim))
 
             // Routes
             .service(routes::index)
+            .service(routes::contact)
             .service(routes::blog)
-            .service(fs::Files::new("/", "./public/").show_files_listing())
+            .service(routes::read)
+
+            // RSS Feed
+            // .service(routes::rss)
+
+            // Allow visitors to view files in the public directory
+            // Files in the public directory include robots.txt, favicon.ico, and others.
+            .service(fs::Files::new("/", "./public/"))
     })
-    .bind((addr, port))?
+    .bind(addr).unwrap()
     .run()
-    .await
 }
 
 // Use actix_web::test as a unit test

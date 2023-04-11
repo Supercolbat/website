@@ -1,7 +1,9 @@
 // Global styles
 @import 'base/core';
+@import 'base/markdown';
 
 // Page styles
+// @import 'pages/blog/markdown';
 
 // <header> background shifting
 @keyframes shift {
@@ -19,8 +21,8 @@ header {
   background-attachment: fixed;
   animation: 30s linear shift infinite;
 
-  height: 25vh; // Fallback if dvh unit is not supported
-  height: 25dvh;
+  min-height: 50vh; // Fallback if dvh unit is not supported
+  min-height: 50dvh;
 
   h1 {
     margin: 0 0 16px 0;
@@ -35,6 +37,18 @@ header {
   }
 }
 
+.metadata {
+  width: fit-content;
+  padding: 1em;
+
+  border: 1px solid $foreground;
+  border-radius: 16px;
+
+  p {
+    margin: 0;
+  }
+}
+
 main {
   display: flex;
   align-items: center;
@@ -42,15 +56,11 @@ main {
   gap: 2em;
 
   padding: 2em;
-
-  // Restrict the width of children
-  & > * { max-width: 1000px; }
 }
 
-ul {
-  list-style: circle;
+// Restrict the width of children
+.article {
+  width: 100%;
+  max-width: 75ch;
 }
 
-li * {
-  display: inline;
-}

@@ -2,15 +2,22 @@ mod server;
 mod routes;
 mod components;
 mod utils;
+mod blog;
+mod state;
+mod reading_time;
 
 use env_logger::Env;
+use log::info;
+use actix_web::rt;
 
-// const ADDR: &str = "127.0.0.1";
-const ADDR: &str = "0.0.0.0";
-const PORT: u16 = 8080;
+use std::{
+    net::{Ipv4Addr, SocketAddrV4},
+    io::{self, Write},
+    sync::{Arc, Mutex},
+};
 
-#[tokio::main]
-async fn main() -> std::io::Result<()> {
+#[actix_web::main]
+async fn main() {
     println!(r#"
   __                     __               __   
  |__|.-----.-----.--.--.|  |.-----.-----.|  |_ 
@@ -19,11 +26,64 @@ async fn main() -> std::io::Result<()> {
 |___|            |_____|                       
 "#);
 
+    let address = SocketAddrV4::new(Ipv4Addr::new(0, 0, 0, 0), 8080);
+
     // Enable logging
     env_logger::init_from_env(Env::default().default_filter_or("info"));
+    
+    // Construct blog struct
+    let blog = Arc::new(Mutex::new(blog::Blog::default().expect("Failed to construct blog")));
+    info!("Initialized blog");
 
     // Start the server
-    println!("🚀 Listening for connections on {}:{}", ADDR, PORT);
-    println!("Press Ctrl + C to exit.");
-    server::start_server(ADDR, PORT).await
+    info!("🚀 Listening for connections on {}", address);
+    info!("Press Ctrl + C to exit.");
+    let server = server::create_server(address, Arc::clone(&blog));
+    let handle = server.handle();
+
+    // Spawn the server in another thread
+    rt::spawn(server);
+
+    // Start the server
+    handle.resume().await;
+
+    // Parse commands (temporary)
+    // TODO: work in terminal as commands, rather than as a CLI
+    loop {
+        print!(">>> ");
+        io::stdout().lock().flush().unwrap();
+
+        // Read input and handle
+        let mut buf = String::new();
+        if let Err(_) = io::stdin().read_line(&mut buf) {
+            println!("[!] Failed to read command.");
+            continue;
+        }
+        
+        // Match commands
+        let line = buf.trim();
+        match line {
+            "help" => {
+                println!("Commands: help, exit, refresh");
+            }
+            "exit" => {
+                println!("Quitting...");
+                break;
+            }
+            "refresh" => {
+                println!("Refreshing...");
+                match Arc::clone(&blog).lock().unwrap().update_articles() {
+                    Ok(_) => { println!("Complete!") } 
+                    Err(_) => { println!("Error!") } 
+                }
+            }
+            _ => {
+                println!("Unknown command");
+            }
+        }
+    }
+
+    // Gracefully stop the web server if the loops exits
+    println!("exit");
+    handle.stop(true).await;
 }

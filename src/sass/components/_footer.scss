@@ -8,9 +8,11 @@ footer {
   border-top: 1px solid $foreground;
 
   // Center content
-  p {
+  nav, p {
+    margin: 1em;
     display: flex;
     justify-content: center;
+    gap: 1em; // Fallback if ch unit is not supported
     gap: 1ch;
 
     text-align: center;

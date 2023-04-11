@@ -4,21 +4,18 @@ pub fn footer() -> Markup {
     html! {
         footer {
             // Links
-            p {
-                a href="#" { "Blog" }
-                (PreEscaped("&bull;"))
-                a href="#" { "Contact" }
-                (PreEscaped("&bull;"))
-                a href="#" { "RSS" }
-                (PreEscaped("&bull;"))
-                a href="#" { "Source" }
+            nav {
+                a href="/blog" { "Blog" }
+                (PreEscaped("&middot;"))
+                a href="/contact" { "Contact" }
+                (PreEscaped("&middot;"))
+                a href="/rss" { "RSS" }
+                (PreEscaped("&middot;"))
+                a href="https://github.com/Supercolbat/website" target="_blank" { "Source" }
             }
 
             // Copyright :)
-            p {
-                "© 2023 Joey Lent. MIT License | "
-                a href="https://github.com/Supercolbat/website" { "v" (env!("CARGO_PKG_VERSION")) }
-            }
+            p { "© 2023 Joey Lent. MIT License." }
         }
     }
 }

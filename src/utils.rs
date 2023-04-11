@@ -29,3 +29,4 @@ pub fn compile_scss(path: &str) -> String {
         }
     }
 }
+

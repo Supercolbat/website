@@ -12,6 +12,11 @@
 // Other styles
 body {
   margin: 0;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   background-color: $background;
   color: $foreground;
@@ -32,14 +37,8 @@ p, span {
   line-height: 140%;
 }
 
-a {
-  // color: #CE4760;
-  text-decoration: none;
- 
+a, a:visited {
+  color: $foreground;
   font-weight: bold;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 
