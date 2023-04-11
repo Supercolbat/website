@@ -86,9 +86,9 @@ impl Blog {
             // Construct Article
             let words = count_words(mdast.to_string());
             let article = Article {
-                title: String::from(doc["title"].as_str().unwrap_or_else(|| "")),
-                description: String::from(doc["description"].as_str().unwrap_or_else(|| "")),
-                publish_date: String::from(doc["published_at"].as_str().unwrap_or_else(|| "")),
+                title: String::from(doc["title"].as_str().unwrap_or("")),
+                description: String::from(doc["description"].as_str().unwrap_or("")),
+                publish_date: String::from(doc["published_at"].as_str().unwrap_or("")),
 
                 content: md.clone(),
 

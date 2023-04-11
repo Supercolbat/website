@@ -54,8 +54,8 @@ async fn main() {
         io::stdout().lock().flush().unwrap();
 
         // Read input and handle
-        let mut buf = String::new();
-        if let Err(_) = io::stdin().read_line(&mut buf) {
+        let mut buf = String::default();
+        if io::stdin().read_line(&mut buf).is_err() {
             println!("[!] Failed to read command.");
             continue;
         }
