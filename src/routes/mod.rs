@@ -1,3 +1,5 @@
+//! Page routes for use in actix-web
+
 mod index;
 mod contact;
 mod blog;

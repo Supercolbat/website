@@ -1,5 +1,6 @@
 use maud::{html, Markup};
 
+/// Generate meta tags for mobile support and for embeds.
 pub fn meta_tags(description: &str) -> Markup {
     html! {
         // Mobile support

@@ -1,6 +1,7 @@
-/// Rust port of ngryman's reading-time package for Node.JS
-/// Go check it out: https://github.com/ngryman/reading-time
+//! Rust port of ngryman's reading-time package for Node.JS
+//! Go check it out: https://github.com/ngryman/reading-time
 
+/// Return `true` if a character is a CJK
 fn is_cjk(c: char) -> bool {
     match c as u32 {
         // Hiragana (Katakana not included on purpose).
@@ -16,6 +17,7 @@ fn is_cjk(c: char) -> bool {
     }
 }
 
+/// Return `true` if a character is a word boundary
 fn is_ansi_word_bound(c: char) -> bool {
     match c {
         ' ' | '\n' | '\r' | '\t' => true,
@@ -23,6 +25,7 @@ fn is_ansi_word_bound(c: char) -> bool {
     }
 }
 
+/// Return `true` if a character is a punctuation character
 fn is_punctuation(c: char) -> bool {
     match c as u32 {
         0x21   ..= 0x2f |
@@ -38,6 +41,7 @@ fn is_punctuation(c: char) -> bool {
     }
 }
 
+/// Count the number of words in a text
 pub fn count_words(text: String) -> u32 {
     let chars: Vec<_> = text.chars().collect();
 
@@ -71,6 +75,8 @@ pub fn count_words(text: String) -> u32 {
 }
 
 const WPM: u32 = 200;
+
+/// Calculate the amount of minutes it would take a person to read a given amount of words
 pub fn reading_time_from_words(words: u32) -> u32 {
     words / WPM
 }

@@ -2,6 +2,9 @@ use actix_web::web;
 use maud::{DOCTYPE, html, Markup, PreEscaped};
 use crate::{components, state::AppState, utils};
 
+/// Generate page for the blog listing.
+///
+/// Reads an article from cache and generates a page with the information.
 #[actix_web::get("/blog/{slug}")]
 async fn read(data: web::Data<AppState>, slug: web::Path<(String,)>) -> actix_web::Result<Markup> {
     let blog = data.blog.lock().unwrap();

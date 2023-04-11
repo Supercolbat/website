@@ -1,5 +1,8 @@
 use maud::{html, Markup, PreEscaped};
 
+/// Generate a card.
+///
+/// Style located in `sass/components/_footer.scss`.
 pub fn footer() -> Markup {
     html! {
         footer {

@@ -5,12 +5,14 @@ const PYTHON: &str = include_str!("../assets/python.svg");
 const RUST  : &str = include_str!("../assets/rust.svg");
 const VIM   : &str = include_str!("../assets/vim.svg");
 
+/// Enum representing icons in the assets folder
 pub enum Icon {
     Dart, Figma, Nim,
     Python, Rust, Vim
 }
 
 impl Icon {
+    /// Returns the appropriate SVG as a string
     pub fn as_svg(&self) -> &str {
         match self {
             Icon::Dart   => DART,

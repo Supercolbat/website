@@ -31,10 +31,12 @@ pub struct Article {
 }
 
 impl Blog {
+    /// Creates a new `Blog`
     pub fn new() -> Self {
         Blog { articles: HashMap::new() }
     }
 
+    /// Creates a new `Blog` and caches the articles.
     pub fn default() -> Result<Self, Box<dyn Error>> { 
         let mut blog = Blog::new();
         blog.update_articles()?;
@@ -114,8 +116,7 @@ impl Blog {
         Ok(())
     }
 
-
-    /// Convenience method
+    /// Convenience method to get from `self.articles`
     pub fn get(&self, key: String) -> Option<&Article> {
         self.articles.get(key.as_str())
     }

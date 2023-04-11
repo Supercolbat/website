@@ -1,6 +1,12 @@
 use maud::{DOCTYPE, html, Markup, PreEscaped};
 use crate::{components, utils};
 
+/// Generate page for the contact page.
+///
+/// This page contains contact information such as E-mail and Matrix ID.
+///
+/// TODO: My public key is linked next to the e-mail if a user decides to encrypt their
+/// communications with me.
 #[actix_web::get("/contact")]
 async fn contact() -> actix_web::Result<Markup> {
     let css = utils::compile_scss("src/sass/contact.scss");
@@ -16,13 +22,14 @@ async fn contact() -> actix_web::Result<Markup> {
         }
         main {
             section {
-                h3 { "Email" }
+                h3 { "Matrix" }
+                p { "@py_:catgirl.cloud" }
+
+                h3 { "E-mail" }
                 p {
                     "supercolbat@protonmail.com " 
                     a href="#" { "(PGP)" }
                 }
-                h3 { "Matrix" }
-                p { "@py_:catgirl.cloud" }
             }
         }
         (components::footer())

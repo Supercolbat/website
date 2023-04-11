@@ -1,5 +1,9 @@
 use grass::OutputStyle;
 
+/// Compiles an SCSS file using the `grass` compiler. Defaults to minified.
+///
+/// If it fails to compile the function checks the build mode. If in debug mode, the error message
+/// is returned in CSS form. If in release, an empty string will be returned.
 pub fn compile_scss(path: &str) -> String {
     match grass::from_path(path, &grass::Options::default().style(OutputStyle::Compressed)) {
         // Compiled CSS on success

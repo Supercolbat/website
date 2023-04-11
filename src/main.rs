@@ -1,3 +1,6 @@
+//! Website software program by Joey Lent
+//! Licensed under MIT
+
 mod server;
 mod routes;
 mod components;

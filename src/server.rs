@@ -52,15 +52,46 @@ mod tests {
         let mut app = test::init_service(App::new().service(routes::index)).await;
         let req = test::TestRequest::get().uri("/").to_request();
         let resp = test::call_service(&mut app, req).await;
+
+        // Can the endpoint be reached?
         assert!(resp.status().is_success());
     }
 
     #[actix_web::test]
-    async fn test_blog() {
+    async fn test_contact_get() {
+        let mut app = test::init_service(App::new().service(routes::index)).await;
+        let req = test::TestRequest::get().uri("/contact").to_request();
+        let resp = test::call_service(&mut app, req).await;
+
+        // Can the endpoint be reached?
+        assert!(resp.status().is_success());
+    }
+
+    #[actix_web::test]
+    async fn test_blog_get() {
         let mut app = test::init_service(App::new().service(routes::blog)).await;
         let req = test::TestRequest::get().uri("/blog").to_request();
         let resp = test::call_service(&mut app, req).await;
+
+        // Can the endpoint be reached?
         assert!(resp.status().is_success());
+    }
+
+    #[actix_web::test]
+    async fn test_read_get() {
+        let mut app = test::init_service(App::new().service(routes::blog)).await;
+        
+        // Can the endpoint be reached?
+        // Use an existing blog post
+        let req = test::TestRequest::get().uri("/blog/readme").to_request();
+        let resp = test::call_service(&mut app, req).await;
+        assert!(resp.status().is_success());
+
+        // Does an non-existing endpoint return an error?
+        // Because of how slugs are generated, this should be an impossible endpoint
+        let req = test::TestRequest::get().uri("/blog/.md").to_request();
+        let resp = test::call_service(&mut app, req).await;
+        assert!(resp.status().is_client_error());
     }
 }
 

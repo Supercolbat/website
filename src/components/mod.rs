@@ -1,3 +1,5 @@
+//! Collection of Maud components
+
 mod card;
 mod footer;
 mod icons;
