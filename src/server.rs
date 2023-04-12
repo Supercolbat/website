@@ -44,46 +44,100 @@ pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>) -> Server {
 // Use actix_web::test as a unit test
 #[cfg(test)]
 mod tests {
+    use std::collections::HashMap;
+
+    use crate::blog::Article;
+
     use super::*;
     use actix_web::test;
 
     #[actix_web::test]
     async fn test_index_get() {
         let mut app = test::init_service(App::new().service(routes::index)).await;
-        let req = test::TestRequest::get().uri("/").to_request();
-        let resp = test::call_service(&mut app, req).await;
 
         // Can the endpoint be reached?
+        let req = test::TestRequest::get().uri("/").to_request();
+        let resp = test::call_service(&mut app, req).await;
         assert!(resp.status().is_success());
     }
 
     #[actix_web::test]
     async fn test_contact_get() {
-        let mut app = test::init_service(App::new().service(routes::index)).await;
-        let req = test::TestRequest::get().uri("/contact").to_request();
-        let resp = test::call_service(&mut app, req).await;
+        let mut app = test::init_service(App::new().service(routes::contact)).await;
 
         // Can the endpoint be reached?
+        let req = test::TestRequest::get().uri("/contact").to_request();
+        let resp = test::call_service(&mut app, req).await;
         assert!(resp.status().is_success());
     }
 
     #[actix_web::test]
     async fn test_blog_get() {
-        let mut app = test::init_service(App::new().service(routes::blog)).await;
-        let req = test::TestRequest::get().uri("/blog").to_request();
-        let resp = test::call_service(&mut app, req).await;
+        // Create the article(s)
+        let mut articles = HashMap::new();
+        articles.insert(String::from("test"), Article {
+            title: String::default(),
+            description: String::default(),
+            publish_date: String::default(),
+            content: String::default(),
+            words: 0,
+            minutes: 0,
+        });
+
+        // Create the blog
+        let blog = Arc::new(Mutex::new(Blog { articles }));
+
+        // Create the app state
+        let state = AppState { blog: Arc::clone(&blog) };
+
+        // Initialize the app
+        let mut app = test::init_service(
+            App::new()
+                .app_data(web::Data::new(state))
+                .wrap(Logger::default())
+                .wrap(Compress::default())
+                .wrap(NormalizePath::new(TrailingSlash::Trim))
+                .service(routes::blog)
+        ).await;
 
         // Can the endpoint be reached?
+        let req = test::TestRequest::get().uri("/blog").to_request();
+        let resp = test::call_service(&mut app, req).await;
         assert!(resp.status().is_success());
     }
 
     #[actix_web::test]
     async fn test_read_get() {
-        let mut app = test::init_service(App::new().service(routes::blog)).await;
+        // Create the article(s)
+        let mut articles = HashMap::new();
+        articles.insert(String::from("test"), Article {
+            title: String::default(),
+            description: String::default(),
+            publish_date: String::default(),
+            content: String::default(),
+            words: 0,
+            minutes: 0,
+        });
+
+        // Create the blog
+        let blog = Arc::new(Mutex::new(Blog { articles }));
+
+        // Create the app state
+        let state = AppState { blog: Arc::clone(&blog) };
+
+        // Initialize the app
+        let mut app = test::init_service(
+            App::new()
+                .app_data(web::Data::new(state))
+                .wrap(Logger::default())
+                .wrap(Compress::default())
+                .wrap(NormalizePath::new(TrailingSlash::Trim))
+                .service(routes::blog)
+        ).await;
         
         // Can the endpoint be reached?
         // Use an existing blog post
-        let req = test::TestRequest::get().uri("/blog/readme").to_request();
+        let req = test::TestRequest::get().uri("/blog/test").to_request();
         let resp = test::call_service(&mut app, req).await;
         assert!(resp.status().is_success());
 

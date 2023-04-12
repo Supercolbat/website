@@ -10,11 +10,6 @@ async fn read(data: web::Data<AppState>, slug: web::Path<(String,)>) -> actix_we
     let blog = data.blog.lock().unwrap();
 
     let content = &blog.get(slug.into_inner().0);
-    if content.is_none() {
-        return Ok(html! {
-
-        })
-    }
     let article = content.unwrap();
     let css = utils::compile_scss("src/sass/read.scss");
 
