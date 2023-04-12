@@ -30,6 +30,9 @@ pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>) -> Server {
             .service(routes::blog)
             .service(routes::read)
 
+            // Obligatory easter egg
+            .service(web::redirect("/admin", "https://piped.projectsegfau.lt/watch?v=dQw4w9WgXcQ"))
+
             // RSS Feed
             // .service(routes::rss)
 

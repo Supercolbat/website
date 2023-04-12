@@ -1,2 +1,6 @@
 # We're not public yet
+User-agent: *
+
 Disallow: /
+
+Disallow: /admin
