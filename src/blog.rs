@@ -1,4 +1,4 @@
-use markdown::{Options, ParseOptions, Constructs, mdast::Node::Yaml};
+use markdown::{Options, ParseOptions, Constructs, mdast::Node::Yaml, CompileOptions};
 use yaml_rust::YamlLoader;
 use std::{
     collections::HashMap,
@@ -69,7 +69,10 @@ impl Blog {
                 },
                 ..ParseOptions::default()
             },
-            ..Options::default()
+            compile: CompileOptions {
+                allow_dangerous_html: true,
+                ..CompileOptions::default()
+            }
         };
 
         // Read file contents
