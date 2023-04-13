@@ -12,7 +12,7 @@ footer {
     margin: 1em;
     display: flex;
     justify-content: center;
-    gap: 1em; // Fallback if ch unit is not supported
+    gap: 0.5em; // Fallback if ch unit is not supported
     gap: 1ch;
 
     text-align: center;
