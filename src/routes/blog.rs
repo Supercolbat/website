@@ -15,10 +15,14 @@ async fn blog(data: web::Data<AppState>) -> actix_web::Result<Markup> {
 
     let css = utils::compile_scss("src/sass/blog.scss");
 
+    let mut articles: Vec<_> = (&blog).articles.iter().collect();
+    articles.sort_by_key(|key| &key.1.publish_date);
+    articles.reverse();
+
     Ok(html! {
         (DOCTYPE)
         head {
-            title { "Joey Lent :: Blog" }
+            title { "Blog :: Joey Lent" }
             (components::meta_tags("Another self-proclaimed developer"))
             style { (PreEscaped(css)) }
         }
@@ -27,16 +31,17 @@ async fn blog(data: web::Data<AppState>) -> actix_web::Result<Markup> {
                 h1 { "Blog" }
             }
             main {
-                p { "TODO: These are not sorted chronologically." }
                 section {
                     ul {
-                        @for article in &blog.articles {
+                        @for article in articles {
                             @let (slug, post) = article;
                             @if ! &post.publish_date.is_empty() {
                                 li {
-                                    "["
-                                    p { (post.publish_date) }
-                                    "] "
+                                    // Date is in the format of "YYYY-MM-DD HH:MM"
+                                    // Diplay date without the time in case multiple posts are made
+                                    // in one day
+                                    "[" p { (post.publish_date.split_whitespace().next().unwrap()) } "] "
+
                                     a href=(format!("/blog/{}", slug)) { (post.title) }
                                 }
                             }
