@@ -16,7 +16,7 @@ async fn read(data: web::Data<AppState>, slug: web::Path<(String,)>) -> actix_we
     Ok(html! {
         (DOCTYPE)
         head {
-            title { "Joey Lent :: " (&article.title) }
+            title { (&article.title) " :: Joey Lent"}
             (components::meta_tags(&article.description))
             style { (PreEscaped(css)) }
         }
@@ -27,8 +27,15 @@ async fn read(data: web::Data<AppState>, slug: web::Path<(String,)>) -> actix_we
             }
             main {
                 section.metadata {
-                    p { "Published on: " (&article.publish_date) }
+                    @if (&article).publish_date.is_empty() {
+                        p { b { "Previewing article" } }
+                    }
+                    @else {
+                        p { "Published on: " (&article.publish_date) }
+                    }
+
                     hr {}
+
                     p {
                         (&article.words.to_string())
                         " words / " 

@@ -28,7 +28,7 @@ will not have is to making the CSS work on old browsers. I *will* abuse modern C
 ## How to setup?
 
 Although this is my website, by using the power of MIT License, I grant you the power to use my
-website.
+website (and my code).
 
 Step 1: Clone the repository
 

@@ -13,7 +13,7 @@ async fn contact() -> actix_web::Result<Markup> {
     Ok(html! {
         (DOCTYPE)
         head {
-            title { "Joey Lent" }
+            title { "Contact :: Joey Lent" }
             (components::meta_tags("Another self-proclaimed developer"))
             style { (PreEscaped(css)) }
         }

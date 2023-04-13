@@ -14,8 +14,8 @@
 
 // <header> background shifting
 @keyframes shift {
-  from {background-position: 0px 0px}
-  to {background-position: 600px 240px}
+  from { background-position: 0px 0px; }
+  to { background-position: 600px 240px; }
 }
 
 header {
