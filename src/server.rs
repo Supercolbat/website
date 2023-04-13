@@ -34,7 +34,7 @@ pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>) -> Server {
             .service(web::redirect("/admin", "https://piped.projectsegfau.lt/watch?v=dQw4w9WgXcQ"))
 
             // RSS Feed
-            // .service(routes::rss)
+            .service(routes::rss)
 
             // Allow visitors to view files in the public directory
             // Files in the public directory include robots.txt, favicon.ico, and others.
