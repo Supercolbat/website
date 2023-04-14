@@ -1,12 +1,18 @@
+use actix_web::web;
 use maud::{DOCTYPE, html, Markup, PreEscaped};
-use crate::{components::{self, Icon}, utils};
+use crate::{components::{self, Icon}, state::AppState, utils};
 
 /// Generate page for the blog listing.
 ///
 /// TODO: This page is static and can likely be built at compile-time.
 #[actix_web::get("/")]
-async fn index() -> actix_web::Result<Markup> {
-    let css = utils::compile_scss("src/sass/index.scss");
+async fn index(data: web::Data<AppState>) -> actix_web::Result<Markup> {
+    let css = if cfg!(debug_assertions) {
+        utils::compile_scss("src/sass/index.scss")
+    } else {
+        data.css.lock().unwrap().index.clone()
+    };
+
     Ok(html! {
         (DOCTYPE)
         head {

@@ -11,7 +11,12 @@ async fn read(data: web::Data<AppState>, slug: web::Path<(String,)>) -> actix_we
 
     let content = &blog.get(slug.into_inner().0);
     let article = content.unwrap();
-    let css = utils::compile_scss("src/sass/read.scss");
+
+    let css = if cfg!(debug_assertions) {
+        utils::compile_scss("src/sass/read.scss")
+    } else {
+        data.css.lock().unwrap().read.clone()
+    };
 
     Ok(html! {
         (DOCTYPE)

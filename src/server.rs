@@ -9,15 +9,16 @@ use actix_files as fs;
 use std::net::SocketAddrV4;
 use std::sync::{Arc, Mutex};
 
-use crate::{routes, blog::Blog, state::AppState};
+use crate::{routes, state::{AppState, PageStyle}, blog::Blog};
 
 /// Creates a web server object that can be started later
-pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>) -> Server {
+pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>, css: Arc<Mutex<PageStyle>>) -> Server {
     HttpServer::new(move || {
         let blog = blog.clone();
+        let css = css.clone();
         App::new()
             // App state
-            .app_data(web::Data::new(AppState { blog }))
+            .app_data(web::Data::new(AppState { blog, css }))
 
             // Middleware
             .wrap(Logger::default())
@@ -49,7 +50,7 @@ pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>) -> Server {
 mod tests {
     use std::collections::HashMap;
 
-    use crate::blog::Article;
+    use crate::{blog::Article, state::PageStyle};
 
     use super::*;
     use actix_web::test;
@@ -82,16 +83,18 @@ mod tests {
             title: String::default(),
             description: String::default(),
             publish_date: String::default(),
+            category: String::default(),
             content: String::default(),
             words: 0,
             minutes: 0,
         });
 
         // Create the blog
-        let blog = Arc::new(Mutex::new(Blog { articles }));
+        let blog = Arc::new(Mutex::new(Blog { articles, rss: String::default() }));
+        let css = Arc::new(Mutex::new(PageStyle::new()));
 
         // Create the app state
-        let state = AppState { blog: Arc::clone(&blog) };
+        let state = AppState { blog, css };
 
         // Initialize the app
         let mut app = test::init_service(
@@ -117,16 +120,18 @@ mod tests {
             title: String::default(),
             description: String::default(),
             publish_date: String::default(),
+            category: String::default(),
             content: String::default(),
             words: 0,
             minutes: 0,
         });
 
         // Create the blog
-        let blog = Arc::new(Mutex::new(Blog { articles }));
+        let blog = Arc::new(Mutex::new(Blog { articles, rss: String::default() }));
+        let css = Arc::new(Mutex::new(PageStyle::new()));
 
         // Create the app state
-        let state = AppState { blog: Arc::clone(&blog) };
+        let state = AppState { blog, css };
 
         // Initialize the app
         let mut app = test::init_service(

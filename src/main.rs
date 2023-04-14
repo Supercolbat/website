@@ -37,11 +37,17 @@ async fn main() {
     // Construct blog struct
     let blog = Arc::new(Mutex::new(blog::Blog::default().expect("Failed to construct blog")));
     info!("Initialized blog");
+    let css = Arc::new(Mutex::new(state::PageStyle::new()));
+
+    if ! cfg!(debug_assertions) {
+        css.lock().unwrap().update_styles();
+        info!("Compiled SCSS");
+    }
 
     // Start the server
     info!("🚀 Listening for connections on {}", address);
     info!("Press Ctrl + C to exit.");
-    let server = server::create_server(address, Arc::clone(&blog));
+    let server = server::create_server(address, Arc::clone(&blog), Arc::clone(&css));
     let handle = server.handle();
 
     // Spawn the server in another thread
@@ -75,7 +81,7 @@ async fn main() {
             }
             "refresh" => {
                 println!("Refreshing...");
-                match Arc::clone(&blog).lock().unwrap().update_articles() {
+                match blog.lock().unwrap().update_articles() {
                     Ok(_) => { println!("Complete!") } 
                     Err(_) => { println!("Error!") } 
                 }

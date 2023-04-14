@@ -13,7 +13,11 @@ use crate::{components, state::AppState, utils};
 async fn blog(data: web::Data<AppState>) -> actix_web::Result<Markup> {
     let blog = data.blog.lock().unwrap();
 
-    let css = utils::compile_scss("src/sass/blog.scss");
+    let css = if cfg!(debug_assertions) {
+        utils::compile_scss("src/sass/blog.scss")
+    } else {
+        data.css.lock().unwrap().blog.clone()
+    };
 
     let mut articles: Vec<_> = (&blog).articles.iter().collect();
     articles.sort_by_key(|key| &key.1.publish_date);
