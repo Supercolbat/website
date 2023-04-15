@@ -12,13 +12,6 @@ use crate::state::AppState;
 async fn rss(data: web::Data<AppState>) -> HttpResponse {
     let blog = data.blog.lock().unwrap();
 
-    // Load articles in order
-    let mut articles: Vec<_> = (&blog).articles.iter().collect();
-    articles.sort_by_key(|key| &key.1.publish_date);
-    articles.reverse();
-
-    // Set up XML writer
-
     HttpResponse::Ok()
         .content_type("application/rss+xml; charset=utf-8")
         .body(blog.rss.clone())

@@ -149,20 +149,19 @@ impl Blog {
         writer.create_element("rss")
             .with_attribute(("version", "2.0"))
                 .write_inner_content(|writer| {
-                    // RSS metadata
-                    writer.create_element("title")
-                        .write_text_content(BytesText::new("Joey Lent"))?;
-
-                    writer.create_element("link")
-                        .write_text_content(BytesText::new("https://joeylent.dev/"))?;
-
-                    writer.create_element("description")
-                        .write_text_content(BytesText::new("Probably a programming-related blog."))?;
-
                     // Channel
                     writer.create_element("channel")
                         .write_inner_content(|writer| {
-                            // Channel metadata
+                            // RSS metadata
+                            writer.create_element("title")
+                                .write_text_content(BytesText::new("Joey Lent"))?;
+
+                            writer.create_element("link")
+                                .write_text_content(BytesText::new("https://joeylent.dev/"))?;
+
+                            writer.create_element("description")
+                                .write_text_content(BytesText::new("Probably a programming-related blog."))?;
+
                             writer.create_element("language")
                                 .write_text_content(BytesText::new("en-us"))?;
 
@@ -188,8 +187,9 @@ impl Blog {
                                                 .write_text_content(BytesText::new(category.trim()))?;
                                         }
 
-                                    writer.create_element("pubDate")
-                                        .write_text_content(BytesText::new(&post.publish_date))?;
+                                        // TODO: format into proper date structure
+                                        // writer.create_element("pubDate")
+                                        //     .write_text_content(BytesText::new(&post.publish_date))?;
 
                                     Ok(())
                                 })?;
