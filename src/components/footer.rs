@@ -17,6 +17,12 @@ pub fn footer() -> Markup {
                 a href="https://github.com/Supercolbat/website" target="_blank" { "Source" }
             }
 
+            // Props to Project Segfault
+            p {
+                "Hosted on "
+                a href="https://web.dev.projectsegfau.lt/pubnix" { "Project Segfault's Pubnix" }
+            }
+
             // Copyright :)
             p { "© 2023 Joey Lent. MIT License." }
         }

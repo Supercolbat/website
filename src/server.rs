@@ -21,7 +21,7 @@ pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>, css: Arc<Mutex<
             .app_data(web::Data::new(AppState { blog, css }))
 
             // Middleware
-            .wrap(Logger::default())
+            .wrap(Logger::new(r#"[%s] "%r" took %Dms"#))
             .wrap(Compress::default())
             .wrap(NormalizePath::new(TrailingSlash::Trim))
 
@@ -30,6 +30,7 @@ pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>, css: Arc<Mutex<
             .service(routes::contact)
             .service(routes::blog)
             .service(routes::read)
+            .service(routes::privacy)
 
             // Obligatory easter egg
             .service(web::redirect("/admin", "https://piped.projectsegfau.lt/watch?v=dQw4w9WgXcQ"))
