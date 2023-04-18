@@ -10,8 +10,6 @@ pub fn footer() -> Markup {
             nav {
                 a href="/blog" { "Blog" }
                 (PreEscaped("&middot;"))
-                a href="/contact" { "Contact" }
-                (PreEscaped("&middot;"))
                 a href="/rss" { "RSS" }
                 (PreEscaped("&middot;"))
                 a href="https://github.com/Supercolbat/website" target="_blank" { "Source" }
