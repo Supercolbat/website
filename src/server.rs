@@ -27,7 +27,6 @@ pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>, css: Arc<Mutex<
 
             // Routes
             .service(routes::index)
-            .service(routes::contact)
             .service(routes::blog)
             .service(routes::read)
             .service(routes::privacy)
