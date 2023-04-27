@@ -13,7 +13,7 @@ async fn privacy(data: web::Data<AppState>) -> actix_web::Result<Markup> {
     let css = if cfg!(debug_assertions) {
         utils::compile_scss("src/sass/privacy.scss")
     } else {
-        data.css.lock().unwrap().contact.clone()
+        data.css.lock().unwrap().privacy.clone()
     };
 
     Ok(html! {
