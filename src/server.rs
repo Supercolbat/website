@@ -40,6 +40,10 @@ pub fn create_server(addr: SocketAddrV4, blog: Arc<Mutex<Blog>>, css: Arc<Mutex<
             // Allow visitors to view files in the public directory
             // Files in the public directory include robots.txt, favicon.ico, and others.
             .service(fs::Files::new("/", "./public/"))
+
+            .default_service(
+                 web::route().to(routes::error_404)
+            )
     })
     .bind(addr).unwrap()
     .run()
