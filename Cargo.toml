@@ -13,7 +13,7 @@ env_logger = "0.10.0"
 grass = "0.12.3"
 log = "0.4.17"
 markdown = "1.0.0-alpha.8"
-maud = { version = "0.24.0", features = ["actix-web"] }
+maud = { version = "0.25.0", features = ["actix-web"] }
 quick-xml = "0.28.2"
 yaml-rust = "0.4.5"
 
