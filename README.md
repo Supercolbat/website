@@ -25,7 +25,7 @@ will not have is to making the CSS work on old browsers. I *will* abuse modern C
 
 <br>
 
-## How to setup?
+## How to set up?
 
 Although this is my website, by using the power of MIT License, I grant you the power to use my
 website (and my code).
