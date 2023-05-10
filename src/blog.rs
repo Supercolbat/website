@@ -38,9 +38,6 @@ pub struct Article {
     /// Date the article was published
     pub publish_date: String,
 
-    /// Overall topic of the article
-    pub category: String,
-
     /// The article
     pub content: String,
 
@@ -54,7 +51,10 @@ pub struct Article {
 impl Blog {
     /// Creates a new `Blog`
     pub fn new() -> Self {
-        Blog { articles: HashMap::new(), rss: String::default() }
+        Blog {
+            articles: HashMap::new(),
+            rss: String::default()
+        }
     }
 
     /// Creates a new `Blog` and caches the articles.
@@ -116,7 +116,6 @@ impl Blog {
                 title: String::from(doc["title"].as_str().unwrap_or("")),
                 description: String::from(doc["description"].as_str().unwrap_or("")),
                 publish_date: String::from(doc["published_at"].as_str().unwrap_or("")),
-                category: String::from(doc["category"].as_str().unwrap_or("")),
 
                 content: md.clone(),
 
@@ -181,11 +180,6 @@ impl Blog {
 
                                         writer.create_element("author")
                                             .write_text_content(BytesText::new("supercolbat@protonmail.com (Joey Lent)"))?;
-
-                                        for category in (&post.category).split(',') {
-                                            writer.create_element("category")
-                                                .write_text_content(BytesText::new(category.trim()))?;
-                                        }
 
                                         // TODO: format into proper date structure
                                         // writer.create_element("pubDate")

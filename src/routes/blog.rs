@@ -7,8 +7,6 @@ use crate::{components, state::AppState, utils};
 /// Blog posts, named articles in the source, are read from cache and listed. If a post has an
 /// empty publish date, it is considered unpublished and not shown. They can still be access
 /// directly, however.
-///
-/// TODO: Additionally, blog posts are sorted chronologically, from latest to oldest.
 #[actix_web::get("/blog")]
 async fn blog(data: web::Data<AppState>) -> actix_web::Result<Markup> {
     let blog = data.blog.lock().unwrap();
@@ -19,6 +17,7 @@ async fn blog(data: web::Data<AppState>) -> actix_web::Result<Markup> {
         data.css.lock().unwrap().blog.clone()
     };
 
+    // Sort articles chronologically
     let mut articles: Vec<_> = (&blog).articles.iter().collect();
     articles.sort_by_key(|key| &key.1.publish_date);
     articles.reverse();
@@ -28,7 +27,9 @@ async fn blog(data: web::Data<AppState>) -> actix_web::Result<Markup> {
         head {
             title { "Blog :: Joey Lent" }
             (components::meta_tags("Another self-proclaimed developer"))
-            style { (PreEscaped(css)) }
+            style {
+                (PreEscaped(css))
+            }
         }
         div {
             header {
