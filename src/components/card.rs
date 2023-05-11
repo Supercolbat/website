@@ -16,3 +16,26 @@ pub fn card(icon: Icon, title: &str, description: &str) -> Markup {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use crate::components::Icon;
+
+    #[test]
+    fn test_card() {
+        let title = "Github";
+        let description = "This is a card";
+        let card = card(Icon::Github, title, description);
+
+        assert_eq!(
+            card.into_string(),
+            format!(
+                "<div class=\"card\"><div>{}<span>{}</span></div><p>{}</p></div>",
+                Icon::Github.as_svg(),
+                title,
+                description,
+            )
+        );
+    }
+}

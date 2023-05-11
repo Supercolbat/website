@@ -34,3 +34,29 @@ pub fn compile_scss(path: &str) -> String {
     }
 }
 
+// test
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_compile_scss() {
+        // Test with a valid path
+        let css = vec![
+            compile_scss("src/sass/blog.scss"),
+            compile_scss("src/sass/error.scss"),
+            compile_scss("src/sass/index.scss"),
+            compile_scss("src/sass/privacy.scss"),
+            compile_scss("src/sass/read.scss"),
+        ];
+
+        for doc in css {
+            assert!(doc.len() > 0);
+        }
+
+        // Test with an invalid path
+        let css = compile_scss("sass/doesnotexist.scss");
+        assert!(css.is_empty());
+    }
+}
+

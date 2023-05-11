@@ -4,11 +4,13 @@ const NIM   : &str = include_str!("../assets/nim.svg");
 const PYTHON: &str = include_str!("../assets/python.svg");
 const RUST  : &str = include_str!("../assets/rust.svg");
 const VIM   : &str = include_str!("../assets/vim.svg");
+const GITHUB: &str = include_str!("../assets/github.svg");
 
 /// Enum representing icons in the assets folder
 pub enum Icon {
     Dart, Figma, Nim,
-    Python, Rust, Vim
+    Python, Rust, Vim,
+    Github
 }
 
 impl Icon {
@@ -21,6 +23,7 @@ impl Icon {
             Icon::Python => PYTHON,
             Icon::Rust   => RUST,
             Icon::Vim    => VIM,
+            Icon::Github => GITHUB,
         }
     }
 }
@@ -37,5 +40,6 @@ mod tests {
         assert_eq!(Icon::Python.as_svg(), PYTHON);
         assert_eq!(Icon::Rust.as_svg(), RUST);
         assert_eq!(Icon::Vim.as_svg(), VIM);
+        assert_eq!(Icon::Github.as_svg(), GITHUB);
     }
 }
