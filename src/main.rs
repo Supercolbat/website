@@ -8,8 +8,8 @@ mod utils;
 mod blog;
 mod state;
 mod reading_time;
+mod logging;
 
-use env_logger::Env;
 use log::info;
 use actix_web::rt;
 
@@ -32,7 +32,7 @@ async fn main() {
     let address = SocketAddrV4::new(Ipv4Addr::new(0, 0, 0, 0), 8080);
 
     // Enable logging
-    env_logger::init_from_env(Env::default().default_filter_or("info"));
+    logging::init_logging();
     
     // Construct blog struct
     let blog = Arc::new(Mutex::new(blog::Blog::default().expect("Failed to construct blog")));
@@ -45,8 +45,8 @@ async fn main() {
     }
 
     // Start the server
-    info!("🚀 Listening for connections on {}", address);
-    info!("Press Ctrl + C to exit.");
+    println!("🚀 Listening for connections on {}", address);
+    println!("Press Ctrl + C to exit.");
     let server = server::create_server(address, Arc::clone(&blog), Arc::clone(&css));
     let handle = server.handle();
 
@@ -92,7 +92,7 @@ async fn main() {
         }
     }
 
-    // Gracefully stop the web server if the loops exits
+    // Gracefully stop the web server if the loop exits
     println!("exit");
     handle.stop(true).await;
 }
