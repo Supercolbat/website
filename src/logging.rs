@@ -1,3 +1,7 @@
+use env_logger::{
+    Target,
+    WriteStyle
+};
 use log::LevelFilter;
 use time::OffsetDateTime;
 use std::{
@@ -5,7 +9,7 @@ use std::{
     fs::File
 };
 
-// Return the time using the local timezone. If that fails, return the time in UTC.
+/// Return the time using the local timezone. If that fails, return the time in UTC.
 fn get_time_formatted() -> String {
     let date = OffsetDateTime::now_local()
         .unwrap_or(OffsetDateTime::now_utc());
@@ -16,11 +20,10 @@ fn get_time_formatted() -> String {
     )
 }
 
+/// Initializes `env_logger`
 pub fn init_logging() {
-    let now = get_time_formatted();
-    let target = Box::new(File::create(format!("logs/{}.txt", now)).expect("Can't create file"));
-
     env_logger::Builder::new()
+        // Define the logging format
         .format(|buf, record| {
             writeln!(
                 buf,
@@ -31,7 +34,22 @@ pub fn init_logging() {
                 record.args(),
             )
         })
-        .target(env_logger::Target::Pipe(target))
+
+        // If debugging is disabled, log to a file instead of STDOUT
+        .target(
+            if cfg!(debug_assertions) {
+                Target::Stdout
+            } else {
+                let target = Box::new(File::create(format!("logs/{}.txt", get_time_formatted())).expect("Can't create file"));
+                Target::Pipe(target)
+            }
+        )
+
+        // Minimum logging level
         .filter(None, LevelFilter::Info)
+
+        // Enable colors when possible
+        .write_style(WriteStyle::Auto)
+
         .init();
 }

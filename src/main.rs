@@ -10,6 +10,7 @@ mod state;
 mod reading_time;
 mod logging;
 
+use env_logger::Env;
 use log::info;
 use actix_web::rt;
 
