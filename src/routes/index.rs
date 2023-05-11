@@ -17,20 +17,15 @@ async fn index(data: web::Data<AppState>) -> actix_web::Result<Markup> {
         (DOCTYPE)
         head {
             title { "Joey Lent" }
-            (components::meta_tags("Another self-proclaimed developer"))
+            (components::meta_tags("Joey Lent", "Another self-proclaimed developer", ""))
             style { (PreEscaped(css)) }
         }
         div {
             header {
                 h1 { "Joey Lent" }
-                span { "Another self-proclaimed developer" }
+                span { "I am an upcoming front-end developer with an obsession for almost-minimalism." }
             }
             main {
-                section {
-                    h2 { "About me" }
-                    p { "Hey, I'm Joey, a programmer with a passion for all things open-source. " }
-                    p { "I'm also a big fan of Vim. " }
-                }
                 section {
                     h2 { "Fields of expertise" }
                     // Wrapper for the cards
@@ -45,6 +40,7 @@ async fn index(data: web::Data<AppState>) -> actix_web::Result<Markup> {
                 }
                 section {
                     h2 { "Contact" }
+
                     h3 { "Matrix" }
                     p { "@py_:catgirl.cloud" }
 

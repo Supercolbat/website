@@ -20,7 +20,7 @@ async fn privacy(data: web::Data<AppState>) -> actix_web::Result<Markup> {
         (DOCTYPE)
         head {
             title { "Privacy policy :: Joey Lent" }
-            (components::meta_tags("Another self-proclaimed developer"))
+            (components::meta_tags("Privacy policy", "Another self-proclaimed developer", "privacy"))
             style { (PreEscaped(css)) }
         }
         header {

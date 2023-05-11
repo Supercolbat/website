@@ -26,7 +26,7 @@ async fn blog(data: web::Data<AppState>) -> actix_web::Result<Markup> {
         (DOCTYPE)
         head {
             title { "Blog :: Joey Lent" }
-            (components::meta_tags("Another self-proclaimed developer"))
+            (components::meta_tags("Blog", "Another self-proclaimed developer", "blog"))
             style {
                 (PreEscaped(css))
             }

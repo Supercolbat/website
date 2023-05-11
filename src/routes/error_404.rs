@@ -18,7 +18,6 @@ pub async fn error_404(data: web::Data<AppState>) -> actix_web::Result<HttpRespo
             (DOCTYPE)
             head {
                 title { "Joey Lent" }
-                (components::meta_tags("Another self-proclaimed developer"))
                 style { (PreEscaped(css)) }
             }
             div {
