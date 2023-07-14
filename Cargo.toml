@@ -14,7 +14,7 @@ grass = "0.13.0"
 log = "0.4.17"
 markdown = "1.0.0-alpha.11"
 maud = { version = "0.25.0", features = ["actix-web"] }
-quick-xml = "0.28.2"
+quick-xml = "0.29.0"
 time = { version = "0.3.23", features = ["std", "local-offset"] }
 yaml-rust = "0.4.5"
 
