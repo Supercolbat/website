@@ -15,7 +15,7 @@ log = "0.4.17"
 markdown = "1.0.0-alpha.11"
 maud = { version = "0.25.0", features = ["actix-web"] }
 quick-xml = "0.30.0"
-time = { version = "0.3.24", features = ["std", "local-offset"] }
+time = { version = "0.3.26", features = ["std", "local-offset"] }
 yaml-rust = "0.4.5"
 
 [profile.release]
