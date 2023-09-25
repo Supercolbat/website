@@ -12,7 +12,7 @@ actix-web = "4.3.1"
 env_logger = "0.10.0"
 grass = "0.13.1"
 log = "0.4.17"
-markdown = "1.0.0-alpha.11"
+markdown = "1.0.0-alpha.14"
 maud = { version = "0.25.0", features = ["actix-web"] }
 quick-xml = "0.30.0"
 time = { version = "0.3.24", features = ["std", "local-offset"] }
